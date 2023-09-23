@@ -8,4 +8,6 @@ COPY nginx.conf /etc/nginx/
 RUN rm /etc/nginx/conf.d/default.conf
 
 # Set up the watcher.
-COPY watch_reload.sh /docker-entrypoint.d
+COPY watch_reload.sh /
+
+ENTRYPOINT [ "/watch_reload.sh" ]
