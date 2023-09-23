@@ -10,8 +10,8 @@ services:
 
 networks:
   metaploy-network:
-    external: true
     name: metaploy-network
 
 volumes:
   nginx-config-volume:
+    name: metaploy-nginx-config-volume
