@@ -1,0 +1,17 @@
+services:
+  nginx:
+    build: "./nginx"
+    networks:
+      metaploy-network:
+    volumes:
+      - nginx-config-volume:/etc/nginx/sites-enabled/
+    ports:
+      - "${SERVER_PORT:-8080}:80"
+
+networks:
+  metaploy-network:
+    external: true
+    name: metaploy-network
+
+volumes:
+  nginx-config-volume:
