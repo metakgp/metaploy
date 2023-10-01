@@ -17,19 +17,18 @@
 <br />
 <!-- UPDATE -->
 <div align="center">
-  <a href="https://github.com/metakgp/PROJECT_NAME">
+  <a href="https://github.com/metakgp/metaploy">
     <img width="140" alt="image" src="https://user-images.githubusercontent.com/86282911/206632284-cb260f57-c612-4ab5-b92b-2172c341ab23.png">
   </a>
 
-  <h3 align="center">PROJECT_NAME</h3>
+  <h3 align="center">MetaPloy</h3>
 
   <p align="center">
-  <!-- UPDATE -->
-    <i>Project one liner slogan goes here</i>
+    <i>Taking over the world one deployment at a time.</i>
     <br />
-    <a href="https://github.com/metakgp/PROJECT_NAME/issues">Report Bug</a>
+    <a href="https://github.com/metakgp/metaploy/issues">Report Bug</a>
     ·
-    <a href="https://github.com/metakgp/PROJECT_NAME/issues">Request Feature</a>
+    <a href="https://github.com/metakgp/metaploy/issues">Request Feature</a>
   </p>
 </div>
 
@@ -38,8 +37,7 @@
 <details>
 <summary>Table of Contents</summary>
 
-- [About The Project](#about-the-project)
-  - [Supports](#supports)
+- [About](#about-the-project)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
@@ -50,89 +48,44 @@
 
 </details>
 
-
 <!-- ABOUT THE PROJECT -->
-## About The Project
-<!-- UPDATE -->
-<div align="center">
-  <a href="https://github.com/metakgp/PROJECT_NAME">
-    <img width="80%" alt="image" src="https://user-images.githubusercontent.com/86282911/206632547-a3b34b47-e7ae-4186-a1e6-ecda7ddb38e6.png">
-  </a>
-</div>
+## About
+MetaPloy is just a containerized [Nginx](https://nginx.org) reverse proxy that acts as the main webserver. It exposes a docker network named `metaploy-network` and a volume named `metaploy-nginx-config-volume`. The volume is mounted at `/etc/nginx/sites-enabled/`
 
-_Detailed explaination of the project goes here_
+Each projected hosted on the server should be containerized and connected to the `metaploy-network`. Each project has its own Nginx configuration file which should be copied to the `metaploy-nginx-config-volume` volume.
 
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-<div id="supports"></div>
-
-### Supports:
-<!-- UPDATE -->
-1. Shells
-    * `bash`
-    * `zsh`
-2. OS(s)
-    * any `*nix`[`GNU+Linux` and `Unix`]
+These config files are included inside the top-level [http directive](http://nginx.org/en/docs/http/ngx_http_core_module.html#http) and should contain only the [server directives](http://nginx.org/en/docs/http/ngx_http_core_module.html#server). See the [usage](#usage) section for examples.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Getting Started
-
-To set up a local instance of the application, follow the steps below.
-
 ### Prerequisites
-The following dependencies are required to be installed for the project to function properly:
-<!-- UPDATE -->
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+Docker and docker compose are the only required dependencies. You can either install [Docker Desktop](https://docs.docker.com/get-docker/) or the [Docker Engine](https://docs.docker.com/engine/install/). For minimal installations and server use cases, Docker Engine is recommended.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Installation
-
-_Now that the environment has been set up and configured to properly compile and run the project, the next step is to install and configure the project locally on your system._
-<!-- UPDATE -->
-1. Clone the repository
-   ```sh
-   git clone https://github.com/metakgp/PROJECT_NAME.git
-   ```
-2. Make the script executable
-   ```sh
-   cd ./PROJECT_NAME
-   chmod +x ./PROJECT_NAME
-   ```
-3. Execute the script
-   ```sh
-   ./PROJECT_NAME
-   ```
+1. Clone this repository.
+2. Copy the contents of the `.env.template` file into the `.env` file. Create the file if it doesn't exist.
+3. Set the `SERVER_PORT` variable to the desired port. This is the port at which the server will be accessible on the system.
+4. Run `docker compose up` to start MetaPloy.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
 <!-- USAGE EXAMPLES -->
 ## Usage
-<!-- UPDATE -->
-Use this space to show useful examples of how this project can be used. Additional screenshots, code examples and demos work well in this space.
+See also: [metakgp-wiki](https://github.com/metakgp/metakgp-wiki), [gyft](https://github.com/metakgp/gyft), [wimp](https://github.com/metakgp/wimp) which all use metaploy.
 
-<div align="center">
-  <a href="https://github.com/metakgp/PROJECT_NAME">
-    <img width="80%" alt="image" src="https://user-images.githubusercontent.com/86282911/206632640-40dc440e-5ef3-4893-be48-618f2bd85f37.png">
-  </a>
-</div>
+[Examples to be added.]
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Maintainer(s)
-
-<!-- UPDATE -->
-- [NAME](https://github.com/GITHUB_USERNAME)
+- [Harsh Khandeparkar](https://github.com/harshkhandeparkar)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Contact
-
 <p>
 📫 Metakgp -
 <a href="https://bit.ly/metakgp-slack">
@@ -158,7 +111,6 @@ Use this space to show useful examples of how this project can be used. Addition
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Additional documentation
-
   - [License](/LICENSE)
   - [Code of Conduct](/.github/CODE_OF_CONDUCT.md)
   - [Security Policy](/.github/SECURITY.md)
@@ -168,15 +120,15 @@ Use this space to show useful examples of how this project can be used. Addition
 
 <!-- MARKDOWN LINKS & IMAGES -->
 
-[contributors-shield]: https://img.shields.io/github/contributors/metakgp/PROJECT_NAME.svg?style=for-the-badge
-[contributors-url]: https://github.com/metakgp/PROJECT_NAME/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/metakgp/PROJECT_NAME.svg?style=for-the-badge
-[forks-url]: https://github.com/metakgp/PROJECT_NAME/network/members
-[stars-shield]: https://img.shields.io/github/stars/metakgp/PROJECT_NAME.svg?style=for-the-badge
-[stars-url]: https://github.com/metakgp/PROJECT_NAME/stargazers
-[issues-shield]: https://img.shields.io/github/issues/metakgp/PROJECT_NAME.svg?style=for-the-badge
-[issues-url]: https://github.com/metakgp/PROJECT_NAME/issues
-[license-shield]: https://img.shields.io/github/license/metakgp/PROJECT_NAME.svg?style=for-the-badge
-[license-url]: https://github.com/metakgp/PROJECT_NAME/blob/master/LICENSE
+[contributors-shield]: https://img.shields.io/github/contributors/metakgp/metaploy.svg?style=for-the-badge
+[contributors-url]: https://github.com/metakgp/metaploy/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/metakgp/metaploy.svg?style=for-the-badge
+[forks-url]: https://github.com/metakgp/metaploy/network/members
+[stars-shield]: https://img.shields.io/github/stars/metakgp/metaploy.svg?style=for-the-badge
+[stars-url]: https://github.com/metakgp/metaploy/stargazers
+[issues-shield]: https://img.shields.io/github/issues/metakgp/metaploy.svg?style=for-the-badge
+[issues-url]: https://github.com/metakgp/metaploy/issues
+[license-shield]: https://img.shields.io/github/license/metakgp/metaploy.svg?style=for-the-badge
+[license-url]: https://github.com/metakgp/metaploy/blob/master/LICENSE
 [wiki-shield]: https://custom-icon-badges.demolab.com/badge/metakgp_wiki-grey?logo=metakgp_logo&logoColor=white&style=for-the-badge
 [wiki-url]: https://wiki.metakgp.org
