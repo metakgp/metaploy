@@ -11,6 +11,8 @@ services:
 networks:
   metaploy-network:
     name: metaploy-network
+  metaploy-private-network:
+    name: metaploy-private-network
 
 volumes:
   nginx-config-volume:
