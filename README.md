@@ -41,7 +41,7 @@
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
-- [Usage](#usage)
+- [Debugging on server](#debugging-on-server)
 - [Maintainer(s)](#maintainers)
 - [Contact](#contact)
 - [Additional documentation](#additional-documentation)
@@ -72,16 +72,13 @@ Docker and docker compose are the only required dependencies. You can either ins
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-<!-- USAGE EXAMPLES -->
-## Usage
-See also: [metakgp-wiki](https://github.com/metakgp/metakgp-wiki), [gyft](https://github.com/metakgp/gyft), [wimp](https://github.com/metakgp/wimp) which all use metaploy.
+## Debugging on server
 
-[Examples to be added.]
-
-<p align="right">(<a href="#top">back to top</a>)</p>
+Sometimes we have to debug things out in production environment. To make this process streamlined there is an auto reload script running as a background service which checks for any changes made to nginx configurations (`/etc/nginx/nginx.conf` and `/etc/nginx/sites-enabled/*`) and reloads nginx automatically. Check out the script [here](./nginx/watch_reload.sh). In case you need to debug the script itself you can check-out the logs in the docker container located at `/nginx_auto_reload_service.log`.
 
 ## Maintainer(s)
 - [Harsh Khandeparkar](https://github.com/harshkhandeparkar)
+- [Arpit Bhardwaj](https://github.com/proffapt)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
