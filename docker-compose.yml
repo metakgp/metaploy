@@ -1,20 +1,22 @@
 services:
-  nginx:
-    build: "./nginx"
-    restart: always
-    networks:
-      metaploy-network:
-    volumes:
-      - nginx-config-volume:/etc/nginx/sites-enabled/
-    ports:
-      - "${SERVER_PORT:-8080}:80"
+    nginx:
+        image: metakgporg/metaploy
+        container_name: metaploy
+        build: ./nginx
+        restart: always
+        networks:
+            metaploy-network:
+        volumes:
+            - nginx-config-volume:/etc/nginx/sites-enabled/
+        ports:
+            - "${SERVER_PORT:-8080}:80"
 
 networks:
-  metaploy-network:
-    name: metaploy-network
-  metaploy-private-network:
-    name: metaploy-private-network
+    metaploy-network:
+        name: metaploy-network
+    metaploy-private-network:
+        name: metaploy-private-network
 
 volumes:
-  nginx-config-volume:
-    name: metaploy-nginx-config-volume
+    nginx-config-volume:
+        name: metaploy-nginx-config-volume
