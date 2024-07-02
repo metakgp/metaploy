@@ -24,6 +24,6 @@ watch_reloads() {
 	fi
 }
 
-watch_reloads >/nginx_auto_reload_service.log 2>&1 &
+watch_reloads >/app/nginx_auto_reload_service.log 2>&1 &
 
 nginx -g 'daemon off;'
