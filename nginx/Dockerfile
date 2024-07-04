@@ -10,7 +10,10 @@ WORKDIR /app
 
 # Copy config file
 RUN rm /etc/nginx/conf.d/default.conf
+
 COPY nginx.conf /etc/nginx/
+
+COPY cloudflare.metaploy.conf /etc/nginx/sites-enabled/
 
 # Set up the watcher.
 COPY watch_reload.sh ./
