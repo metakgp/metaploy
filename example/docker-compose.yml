@@ -1,0 +1,27 @@
+services:
+  project:
+    container_name: project-container
+    build: .
+    networks:
+      metaploy-network:
+        aliases:
+          - container_hostname # Connect to the metaploy network with this hostname
+      metaploy-private-network: # This network can be used to internally communicate with other projects (such as metakgp/dob or metakgp/odins-vault)
+    volumes:
+      # Connect to the volume where configs are stored
+      - nginx-config-volume:/etc/nginx/sites-enabled
+
+# Define the networks as external
+networks:
+  metaploy-network:
+    external: true
+    name: metaploy-network
+  metaploy-private-network:
+    external: true
+    name: metaploy-private-network
+
+# Define the volumes as external
+volumes:
+  nginx-config-volume:
+    external: true
+    name: metaploy-nginx-config-volume

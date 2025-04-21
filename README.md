@@ -51,7 +51,7 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About
-MetaPloy is just a containerized [Nginx](https://nginx.org) reverse proxy that acts as the main web server (ingress server). It exposes a Docker network named `metaploy-network` and a volume named `metaploy-nginx-config-volume`. The volume is mounted at `/etc/nginx/sites-enabled/` and reads `.metaploy.conf` files that contain the nginx configurations for each of the individual projects.
+MetaPloy is just a containerized [nginx](https://nginx.org) reverse proxy that acts as the main web server (ingress server). It exposes a Docker network named `metaploy-network` and a volume named `metaploy-nginx-config-volume`. The volume is mounted at `/etc/nginx/sites-enabled/` and reads `.metaploy.conf` files that contain the nginx configurations for each of the individual projects.
 
 Each project hosted on the server is containerized and connected to the `metaploy-network`, and its nginx configuration file is copied to the `metaploy-nginx-config-volume` volume. MetaPloy watches for changes in the volume and reloads the configuration if any changes are made (e.g., a new project is loaded or unloaded).
 
@@ -74,7 +74,23 @@ Docker and docker compose are the only required dependencies. You can either ins
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Usage
-[WIP]
+MetaPloy uses docker [networks](https://docs.docker.com/engine/network/) and [volumes](https://docs.docker.com/engine/storage/volumes/) for its core functionality. See [docker-compose.yml](./docker-compose.yml) for the definitions. There are two main networks and one volume:
+- The `metaploy-network` which is used for connecting projects to the ingress server. Anything on this network can be exposed to the external world via the ingress server.
+- The `nginx-config-volume` which contains the nginx [configuration files](https://nginx.org/en/docs/beginners_guide.html#conf_structure) for each project and is mounted at `/etc/nginx/sites-enabled`.
+- The `metaploy-private-network` which is not exposed to the ingress server. It is used for internal communication between different projects connected to metaploy. Eg: For a database to be accessed by multiple projects.
+
+MetaPloy listens to changes in the config directory using [watch_reload.sh](./nginx/watch_reload.sh). If any file is changed, a new one is added, or removed (such as during the starting or stopping of a project), the nginx configuration is reloaded using `nginx -s reload`. All configuration files inside the configuration directory are directly included under the `http` directive of the ingress server. See the last lines of [nginx.conf](./nginx/nginx.conf).
+
+To connect a project to a running MetaPloy instance, the following is required:
+1. Add the metaploy networks and volumes in the project's docker compose file (or connect to the network in any other way).
+2. Create a `[project].metaploy.conf` file that adds directives to connect to the server and sets the [server directives](http://nginx.org/en/docs/http/ngx_http_core_module.html#server) including the `server_name` to set the domain. See [example](./example/metaploy/project.metaploy.conf).
+3. Copy the config file to the config volume when the project starts. This can be done by running a postinstall [script](./example/metaploy/postinstall.sh) as the entrypoint of the container.
+
+See the [example](./example/). Also see existing projects using metaploy:
+1. [IQPS Backend](https://github.com/metakgp/iqps-go/tree/main/backend) - Uses the standard template described here. Also uses the private network to connect to a database and file server.
+2. [Metakgp Wiki](https://github.com/metakgp/metakgp-wiki/tree/master/nginx) - A non-standard legacy example with an nginx proxy of its own that uses [fastcgi](https://en.wikipedia.org/wiki/FastCGI).
+3. [Odin's Vault](https://github.com/metakgp/odins-vault): A static file server that exposes a volume internally and a file server externally.
+4. [Database of Babel](https://github.com/metakgp/dob): A Postgres database that only uses the private network and does not expose anything outside.
 
 ## Debugging on server
 
