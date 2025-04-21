@@ -41,6 +41,7 @@
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
+  - [Usage](#usage)
 - [Debugging on server](#debugging-on-server)
 - [Maintainer(s)](#maintainers)
 - [Contact](#contact)
@@ -50,9 +51,9 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About
-MetaPloy is just a containerized [Nginx](https://nginx.org) reverse proxy that acts as the main webserver. It exposes a docker network named `metaploy-network` and a volume named `metaploy-nginx-config-volume`. The volume is mounted at `/etc/nginx/sites-enabled/`
+MetaPloy is just a containerized [Nginx](https://nginx.org) reverse proxy that acts as the main web server (ingress server). It exposes a Docker network named `metaploy-network` and a volume named `metaploy-nginx-config-volume`. The volume is mounted at `/etc/nginx/sites-enabled/` and reads `.metaploy.conf` files that contain the nginx configurations for each of the individual projects.
 
-Each projected hosted on the server should be containerized and connected to the `metaploy-network`. Each project has its own Nginx configuration file which should be copied to the `metaploy-nginx-config-volume` volume.
+Each project hosted on the server is containerized and connected to the `metaploy-network`, and its nginx configuration file is copied to the `metaploy-nginx-config-volume` volume. MetaPloy watches for changes in the volume and reloads the configuration if any changes are made (e.g., a new project is loaded or unloaded).
 
 These config files are included inside the top-level [http directive](http://nginx.org/en/docs/http/ngx_http_core_module.html#http) and should contain only the [server directives](http://nginx.org/en/docs/http/ngx_http_core_module.html#server). See the [usage](#usage) section for examples.
 
@@ -71,6 +72,9 @@ Docker and docker compose are the only required dependencies. You can either ins
 4. Run `docker compose up` to start MetaPloy.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
+
+### Usage
+[WIP]
 
 ## Debugging on server
 
