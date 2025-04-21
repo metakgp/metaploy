@@ -51,7 +51,7 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About
-MetaPloy is just a containerized [nginx](https://nginx.org) reverse proxy that acts as the main web server (ingress server). It exposes a Docker network named `metaploy-network` and a volume named `metaploy-nginx-config-volume`. The volume is mounted at `/etc/nginx/sites-enabled/` and reads `.metaploy.conf` files that contain the nginx configurations for each of the individual projects.
+MetaPloy is just a containerized [nginx](https://nginx.org) reverse proxy that acts as the main web server (ingress server) for all metakgp projects. It exposes a Docker network named `metaploy-network` and a volume named `metaploy-nginx-config-volume`. The volume is mounted at `/etc/nginx/sites-enabled/` and reads `.metaploy.conf` files that contain the nginx configurations for each of the individual projects.
 
 Each project hosted on the server is containerized and connected to the `metaploy-network`, and its nginx configuration file is copied to the `metaploy-nginx-config-volume` volume. MetaPloy watches for changes in the volume and reloads the configuration if any changes are made (e.g., a new project is loaded or unloaded).
 
